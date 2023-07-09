@@ -1,0 +1,19 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": "standard-with-typescript",
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "extraFileExtensions": ["html"],
+        "sourceType": "module",
+        "project": ["./tsconfig.json"]
+    },
+    "rules": {
+      "isolatedModules": 0,
+      "parserOptions.extraFileExtensions": 0,
+      "@typescript-eslint/consistent-type-imports": 0
+    }
+}
