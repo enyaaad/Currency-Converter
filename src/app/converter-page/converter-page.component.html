@@ -1,2 +1,8 @@
 <p> converter-page works! </p>
 <button (click)="connect()">get currencies</button>
+
+<div *ngIf="data$ | async as data">
+  <div *ngFor="let currency of data">
+    {{currency.query.from}},{{currency.query.to}},{{currency.result}},
+  </div>
+</div>

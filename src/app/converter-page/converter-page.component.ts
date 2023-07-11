@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ApiConnService } from '../services/apiconn.service'
-import { Observable, of } from 'rxjs'
-import { Currency } from '../models/currency'
+import { empty, Observable } from "rxjs";
+import { Currency } from "../models/currency";
 
 @Component({
   selector: 'app-converter-page',
@@ -9,14 +9,23 @@ import { Currency } from '../models/currency'
   styleUrls: ['./converter-page.component.css']
 })
 
-export class ConverterPageComponent {
-  private readonly currencies: string[] = ['USD', 'EUR', 'GBP', 'CNY', 'JPY', 'TRY']
-  constructor (private readonly apiConn: ApiConnService) {
+export class ConverterPageComponent implements OnInit {
+  private openedSecondary: boolean = false
+  constructor (private readonly apiService: ApiConnService) {}
+  data$: Observable<Currency[]> = empty()
+  connect (): void {
+    this.openedSecondary = true
   }
 
-  connect (): void {
-    this.currencies.forEach(currency => {
-      this.apiConn.convertCurrency(currency, 'rub', 1)
-    })
+  ngOnInit (): void {
+    this.apiService.initFetching(this.apiService.firstCurrencies)
+
+    this.apiService.data$.subscribe(
+      (value) => {
+        console.log(value)
+      }
+    )
+
+    this.data$ = this.apiService.data$
   }
 }
