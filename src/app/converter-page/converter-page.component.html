@@ -1,2 +1,5 @@
 <p> converter-page works! </p>
 <button (click)="connect()">get currencies</button>
+
+<div> {{data$ | async | json}}
+</div>
