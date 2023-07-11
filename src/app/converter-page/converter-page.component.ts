@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { ApiConnService } from '../services/apiconn.service'
-import {empty, Observable} from "rxjs";
-import {Currency} from "../models/currency";
+import { empty, Observable } from "rxjs";
+import { Currency } from "../models/currency";
 
 @Component({
   selector: 'app-converter-page',

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, catchError, empty, forkJoin, interval, Observable, scheduled, switchMap} from 'rxjs'
+import { BehaviorSubject, catchError, empty, forkJoin, interval, Observable, switchMap } from 'rxjs'
 import { Currency } from '../models/currency'
 import { HttpClient } from '@angular/common/http'
 
@@ -12,7 +12,7 @@ export class ApiConnService {
   readonly firstCurrencies: string[] = ['USD', 'EUR', 'GBP']
   readonly secondCurrencies: string[] = ['CNY', 'JPY', 'TRY']
   readonly baseConvertUrl: string = 'https://api.apilayer.com/currency_data/convert'
-  results: BehaviorSubject<Currency[]> = new BehaviorSubject<Currency[]>([{ name: '', cost: 0 }])
+  results: BehaviorSubject<Currency[]> = new BehaviorSubject<Currency[]>([{ success: false, query:{from: '',to: '',amount: 1}, result: 0 }])
   data$: Observable<Currency[]> = this.results.asObservable()
 
   constructor (private readonly http: HttpClient) {

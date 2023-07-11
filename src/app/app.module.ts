@@ -5,6 +5,7 @@ import { AppComponent } from './app.component'
 import { CurrencyComponent } from './currency/currency.component'
 import { ConverterPageComponent } from './converter-page/converter-page.component'
 import { HttpClientModule } from '@angular/common/http'
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { HttpClientModule } from '@angular/common/http'
     ConverterPageComponent
   ],
   imports: [
+    CommonModule,
     HttpClientModule,
     BrowserModule
   ],
