@@ -22,7 +22,7 @@ const apikey: string = 'Z94dXjnNgW1YSy9DBAe1yJCLvZPsFPYr'
 export class ApiConnService {
   readonly firstCurrencies: string[] = ['USD', 'EUR', 'GBP']
   readonly secondCurrencies: string[] = ['CNY', 'JPY', 'TRY']
-  paramsSubj: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([''])
+  paramsSubj: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(this.firstCurrencies)
   params$: Observable<string[]> = this.paramsSubj.asObservable()
   readonly baseConvertUrl: string = 'https://api.apilayer.com/currency_data/convert'
   results: BehaviorSubject<Currency[]> = new BehaviorSubject<Currency[]>([])
@@ -50,6 +50,7 @@ export class ApiConnService {
     const queries: string[] = []
     currencies.pipe(
       map(elem => {
+        console.log(elem)
         elem.forEach(currency => {
           queries.push(this.baseConvertUrl + '?from=' + currency + '&to=RUB&amount=1')
         })
