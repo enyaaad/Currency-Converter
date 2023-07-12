@@ -10,7 +10,8 @@ const apikey: string = 'cfiqdhr6sic34EicZtXSpL51MXYRJrCl'
 @Injectable({ providedIn: 'root' })
 
 export class ApiConnService {
-  readonly firstCurrencies: string[] = ['USD', 'EUR', 'GBP', 'CNY', 'JPY', 'TRY']
+  readonly firstCurrencies: string[] = ['USD', 'EUR', 'GBP']
+  readonly secondCurrencies: string[] = ['CNY', 'JPY', 'TRY']
   readonly baseConvertUrl: string = 'https://api.apilayer.com/currency_data/convert'
   results: BehaviorSubject<Currency[]> = new BehaviorSubject<Currency[]>([])
   data$: Observable<Currency[]> = this.results.asObservable()
