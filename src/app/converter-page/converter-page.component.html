@@ -1,8 +1,17 @@
-<p> converter-page works! </p>
-<button (click)="connect()">get currencies</button>
+<div class="content">
+  <header>
+    To Rub Currency Converter
+    <button (click)="connect()"> Get More </button>
+  </header>
+  <div class="main">
 
-<div *ngIf="data$ | async as data">
-  <div *ngFor="let currency of data">
-    {{currency.query.from}},{{currency.query.to}},{{currency.result}},
+    <div *ngIf="data$ | async as data">
+      <div class="currency" *ngFor="let currency of data; index as i">
+        <span class="currencyBlock"> 1 {{currency.query.from}}</span>
+        <img alt="" height="512" width="512" src="./assets/exchange.png">
+        <span class="currencyBlock">{{currency.result}} {{currency.query.to}}<span class="up"></span>{{currency.diff}}</span>
+      </div>
+    </div>
+
   </div>
 </div>

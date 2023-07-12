@@ -2,6 +2,7 @@ export interface Currency {
   success: boolean
   query: Query
   result: number
+  diff: number | 0
 }
 
 export interface Query {
