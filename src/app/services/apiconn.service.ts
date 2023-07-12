@@ -1,5 +1,15 @@
 import { Injectable } from '@angular/core'
-import {BehaviorSubject, catchError, forkJoin, interval, Observable, Subscription, switchMap, timer} from 'rxjs'
+import {
+  BehaviorSubject,
+  catchError,
+  forkJoin,
+  interval,
+  Observable,
+  pairwise,
+  Subscription,
+  switchMap,
+  timer
+} from 'rxjs'
 import { Currency } from '../models/currency'
 import { HttpClient } from '@angular/common/http'
 
@@ -22,9 +32,12 @@ export class ApiConnService {
   initFetching (order: string[]): Subscription {
     return timer(0, 5000)
       .pipe(
+        pairwise(),
         switchMap(() => this.fetchData(order))
       )
-      .subscribe()
+      .subscribe(([prev, curr]) => {
+        curr.diff = Object.assign(curr, curr.result - prev.result)
+      })
   }
 
   createQueries (currencies: string[]): string[] {

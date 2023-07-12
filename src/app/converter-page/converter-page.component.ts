@@ -21,18 +21,6 @@ export class ConverterPageComponent implements OnInit {
   ngOnInit (): void {
     this.apiService.initFetching(this.apiService.firstCurrencies)
 
-    this.apiService.data$.pipe(
-      pairwise(),
-      map(([prev, curr]) => {
-        for (let [index, value] of curr.entries()) {
-          if (prev.length !== 0) {
-            value = Object.assign(value, { diff: value.result - prev[index].result })
-          } else {
-            value = Object.assign(value, { diff: 0 })
-          }
-        }
-      })
-    ).subscribe()
     this.data$ = this.apiService.data$
   }
 }
