@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ApiConnService } from '../services/apiconn.service'
-import { map, Observable, pairwise } from 'rxjs'
+import { Observable } from 'rxjs'
 import { Currency } from '../models/currency'
 
 @Component({
@@ -23,4 +23,6 @@ export class ConverterPageComponent implements OnInit {
 
     this.data$ = this.apiService.data$
   }
+
+  protected readonly Math = Math
 }

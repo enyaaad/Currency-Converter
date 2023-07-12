@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import {
   BehaviorSubject,
-  catchError,
+  catchError, distinctUntilChanged,
   forkJoin,
   interval,
   Observable,
@@ -16,7 +16,7 @@ import { HttpClient } from '@angular/common/http'
 // const baseUrl: string = 'https://api.apilayer.com/currency_data/live'
 // ?apikey=9lywuXpexs982Lrx3Egj4NV8DyfA7MxT&from=USD&to=RUB&amount=1
 
-const apikey: string = 'cfiqdhr6sic34EicZtXSpL51MXYRJrCl'
+const apikey: string = 'JQAIeO5lQkF1UAVIEOxcUFWhLQBJPye4'
 @Injectable({ providedIn: 'root' })
 
 export class ApiConnService {
@@ -36,7 +36,7 @@ export class ApiConnService {
         switchMap(() => this.fetchData(order))
       )
       .subscribe(([prev, curr]) => {
-        curr.diff = Object.assign(curr, curr.result - prev.result)
+        curr.diff = curr.result - prev.result
       })
   }
 
@@ -52,6 +52,7 @@ export class ApiConnService {
     const req: Array<Observable<object>> = this.createQueries(currencies).map(url => this.http.get(url, { headers: { apikey } }))
 
     return forkJoin(req).pipe(
+      distinctUntilChanged(),
       switchMap((results: any[]) => {
         this.results.next(results)
         return this.data$

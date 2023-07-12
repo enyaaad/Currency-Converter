@@ -2,7 +2,7 @@ export interface Currency {
   success: boolean
   query: Query
   result: number
-  diff: number | 0
+  diff?: number | 0
 }
 
 export interface Query {
@@ -10,6 +10,7 @@ export interface Query {
   to: string
   amount: number
 }
+
 // {
 //   "success": true,
 //   "query": {

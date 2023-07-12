@@ -9,7 +9,7 @@
       <div class="currency" *ngFor="let currency of data; index as i">
         <span class="currencyBlock"> 1 {{currency.query.from}}</span>
         <img alt="" height="512" width="512" src="./assets/exchange.png">
-        <span class="currencyBlock">{{currency.result}} {{currency.query.to}}<span class="up"></span>{{currency.diff}}</span>
+        <span class="currencyBlock">{{Math.floor(currency.result * 100) / 100}} {{currency.query.to}}<span class="up"></span>{{currency.diff || 0}} </span>
       </div>
     </div>
 
