@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core'
 import { ApiConnService } from '../services/apiconn.service'
-import {map, Observable, pairwise} from 'rxjs'
+import { map, Observable, pairwise } from 'rxjs'
 import { Currency } from '../models/currency'
 
 @Component({
   selector: 'app-converter-page',
   templateUrl: './converter-page.component.html',
-  styleUrls: ['./converter-page.component.css']
+  styleUrls: ['./converter-page.component.sass']
 })
 
 export class ConverterPageComponent implements OnInit {
-  openedSecondary: boolean = false
   constructor (private readonly apiService: ApiConnService) {}
   data$: Observable<Currency[]> = new Observable<[]>()
 
   connect (): void {
+    this.apiService.initFetching(this.apiService.firstCurrencies).unsubscribe()
     this.apiService.initFetching(this.apiService.firstCurrencies.concat(this.apiService.secondCurrencies))
   }
 
