@@ -14,12 +14,11 @@ export class ConverterPageComponent implements OnInit {
   data$: Observable<Currency[]> = new Observable<[]>()
 
   connect (): void {
-    this.apiService.initFetching(this.apiService.firstCurrencies).unsubscribe()
-    this.apiService.initFetching(this.apiService.firstCurrencies.concat(this.apiService.secondCurrencies))
+    this.apiService.toggleParams()
   }
 
   ngOnInit (): void {
-    this.apiService.initFetching(this.apiService.firstCurrencies)
+    this.apiService.initFetching()
 
     this.data$ = this.apiService.data$
   }

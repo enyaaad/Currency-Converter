@@ -10,8 +10,8 @@ describe('ConverterPageComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ConverterPageComponent]
     });
-    fixture = TestBed.createComponent(ConverterPageComponent);
-    component = fixture.componentInstance;
+    fixture = TestBed.createComponent(ConverterPageComponent)
+    component = fixture.componentInstance
     fixture.detectChanges();
   });
 
