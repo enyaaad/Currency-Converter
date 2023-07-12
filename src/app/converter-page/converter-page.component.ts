@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { ApiConnService } from '../services/apiconn.service'
-import { map, Observable, pairwise } from 'rxjs'
+import { Observable } from 'rxjs'
 import { Currency } from '../models/currency'
 
 @Component({
@@ -14,13 +14,14 @@ export class ConverterPageComponent implements OnInit {
   data$: Observable<Currency[]> = new Observable<[]>()
 
   connect (): void {
-    this.apiService.initFetching(this.apiService.firstCurrencies).unsubscribe()
-    this.apiService.initFetching(this.apiService.firstCurrencies.concat(this.apiService.secondCurrencies))
+    this.apiService.toggleParams()
   }
 
   ngOnInit (): void {
-    this.apiService.initFetching(this.apiService.firstCurrencies)
+    this.apiService.initFetching()
 
     this.data$ = this.apiService.data$
   }
+
+  protected readonly Math = Math
 }
