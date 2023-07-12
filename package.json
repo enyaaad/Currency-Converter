@@ -9,6 +9,15 @@
     "test": "ng test"
   },
   "private": true,
+  "architect": {
+    "build" : {
+      "builder" : "@angular-devkit/builder:browser",
+      "options": {
+        "outputPath": "dist/currency-converter",
+        "index": "src/index.html"
+      }
+    }
+  },
   "dependencies": {
     "@angular/animations": "^16.1.0",
     "@angular/common": "^16.1.0",
