@@ -1,18 +1,18 @@
 import { Injectable } from '@angular/core'
-import { BehaviorSubject, catchError, empty, forkJoin, interval, Observable, switchMap } from 'rxjs'
+import { BehaviorSubject, catchError, forkJoin, interval, Observable, switchMap } from 'rxjs'
 import { Currency } from '../models/currency'
 import { HttpClient } from '@angular/common/http'
 
 // const baseUrl: string = 'https://api.apilayer.com/currency_data/live'
 // ?apikey=9lywuXpexs982Lrx3Egj4NV8DyfA7MxT&from=USD&to=RUB&amount=1
-const apikey: string = '6bGg5USITsGnKslkiZ1ztWF1NrDZoQOW'
+
+const apikey: string = 'cfiqdhr6sic34EicZtXSpL51MXYRJrCl'
 @Injectable({ providedIn: 'root' })
 
 export class ApiConnService {
-  readonly firstCurrencies: string[] = ['USD', 'EUR', 'GBP']
-  readonly secondCurrencies: string[] = ['CNY', 'JPY', 'TRY']
+  readonly firstCurrencies: string[] = ['USD', 'EUR', 'GBP', 'CNY', 'JPY', 'TRY']
   readonly baseConvertUrl: string = 'https://api.apilayer.com/currency_data/convert'
-  results: BehaviorSubject<Currency[]> = new BehaviorSubject<Currency[]>([{ success: false, query:{from: '',to: '',amount: 1}, result: 0 }])
+  results: BehaviorSubject<Currency[]> = new BehaviorSubject<Currency[]>([])
   data$: Observable<Currency[]> = this.results.asObservable()
 
   constructor (private readonly http: HttpClient) {
@@ -29,13 +29,13 @@ export class ApiConnService {
   createQueries (currencies: string[]): string[] {
     const queries: string[] = []
     currencies.forEach(currency => {
-      queries.push(this.baseConvertUrl + '?from=' + currency + '&to=RUB&amount=1&apikey=' + apikey)
+      queries.push(this.baseConvertUrl + '?from=' + currency + '&to=RUB&amount=1')
     })
     return queries
   }
 
-  fetchData (currencies: string[]): any {
-    const req: Array<Observable<object>> = this.createQueries(currencies).map(url => this.http.get(url))
+  fetchData (currencies: string[]): Observable<Currency[]> {
+    const req: Array<Observable<object>> = this.createQueries(currencies).map(url => this.http.get(url, { headers: { apikey } }))
 
     return forkJoin(req).pipe(
       switchMap((results: any[]) => {
@@ -44,7 +44,7 @@ export class ApiConnService {
       }),
       catchError((err: any) => {
         console.log(err)
-        return empty()
+        return new Observable<[]>()
       })
     )
   }
