@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import {BehaviorSubject, catchError, forkJoin, interval, Observable, switchMap, timer} from 'rxjs'
+import {BehaviorSubject, catchError, forkJoin, interval, Observable, Subscription, switchMap, timer} from 'rxjs'
 import { Currency } from '../models/currency'
 import { HttpClient } from '@angular/common/http'
 
@@ -19,8 +19,8 @@ export class ApiConnService {
   constructor (private readonly http: HttpClient) {
   }
 
-  initFetching (order: string[]): void {
-    timer(0, 5000)
+  initFetching (order: string[]): Subscription {
+    return timer(0, 5000)
       .pipe(
         switchMap(() => this.fetchData(order))
       )
