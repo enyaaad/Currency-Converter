@@ -50,7 +50,6 @@ export class ApiConnService {
     const queries: string[] = []
     currencies.pipe(
       map(elem => {
-        console.log(elem)
         elem.forEach(currency => {
           queries.push(this.baseConvertUrl + '?from=' + currency + '&to=RUB&amount=1')
         })
