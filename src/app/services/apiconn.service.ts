@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core'
 import {
   BehaviorSubject,
-  catchError, distinctUntilChanged,
+  catchError,
   forkJoin,
-  interval, map,
+  map,
   Observable,
   pairwise,
   Subscription,
@@ -16,15 +16,15 @@ import { HttpClient } from '@angular/common/http'
 // const baseUrl: string = 'https://api.apilayer.com/currency_data/live'
 // ?apikey=9lywuXpexs982Lrx3Egj4NV8DyfA7MxT&from=USD&to=RUB&amount=1
 
-const apikey: string = 'Z94dXjnNgW1YSy9DBAe1yJCLvZPsFPYr'
+const apikey: string = 'O0U02pIZVjdqoocrYCmzc8OHm8mlKZz3'
 @Injectable({ providedIn: 'root' })
 
 export class ApiConnService {
   readonly firstCurrencies: string[] = ['USD', 'EUR', 'GBP']
   readonly secondCurrencies: string[] = ['CNY', 'JPY', 'TRY']
+  readonly baseConvertUrl: string = 'https://api.apilayer.com/currency_data/convert'
   paramsSubj: BehaviorSubject<string[]> = new BehaviorSubject<string[]>(this.firstCurrencies)
   params$: Observable<string[]> = this.paramsSubj.asObservable()
-  readonly baseConvertUrl: string = 'https://api.apilayer.com/currency_data/convert'
   results: BehaviorSubject<Currency[]> = new BehaviorSubject<Currency[]>([])
   data$: Observable<Currency[]> = this.results.asObservable()
 
@@ -38,12 +38,14 @@ export class ApiConnService {
   }
 
   initFetching (): Subscription {
-    return timer(0, 5000)
+    this.fetchData()
+    return timer(0, 10000)
       .pipe(
-        pairwise(),
         switchMap(() => this.fetchData())
       )
-      .subscribe()
+      .subscribe(el => {
+        console.log(el)
+      })
   }
 
   createQueries (currencies: Observable<string[]>): string[] {
