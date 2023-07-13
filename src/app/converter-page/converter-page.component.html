@@ -7,11 +7,27 @@
 
     <div *ngIf="data$ | async as data">
       <div class="currency" *ngFor="let currency of data; index as i">
+
         <span class="currencyBlock"> 1 {{currency.query.from}}</span>
         <img alt="" height="512" width="512" src="./assets/exchange.png">
-        <span class="currencyBlock">{{Math.floor(currency.result * 100) / 100}} {{currency.query.to}}<span class="up"></span> <span *ngIf="currency.diff">{{Math.floor(currency.diff * 100) / 100}}</span> </span>
+        <span class="currencyBlock">{{Math.floor(currency.result * 1000) / 1000}} {{currency.query.to}}
+
+          <div class="diffblock" *ngIf="currency.diff">
+
+            <span *ngIf="currency.diff.toString()[0] == '-'">
+              <div class="down">▼</div>
+              <span class="down">{{currency.diff}}</span>
+            </span>
+
+            <span *ngIf="currency.diff.toString()[0] != '-'">
+              <div class="up">▲</div>
+              <span class="up">{{currency.diff}}</span>
+            </span>
+
+          </div>
+
+        </span>
       </div>
     </div>
-
   </div>
 </div>
