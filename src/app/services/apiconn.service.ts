@@ -5,7 +5,6 @@ import {
   forkJoin,
   map,
   Observable,
-  pairwise,
   Subscription,
   switchMap,
   timer
@@ -13,10 +12,8 @@ import {
 import { Currency } from '../models/currency'
 import { HttpClient } from '@angular/common/http'
 
-// const baseUrl: string = 'https://api.apilayer.com/currency_data/live'
-// ?apikey=9lywuXpexs982Lrx3Egj4NV8DyfA7MxT&from=USD&to=RUB&amount=1
-
-const apikey: string = 'O0U02pIZVjdqoocrYCmzc8OHm8mlKZz3'
+// const apikey: string = process.env['APIKEY'] ?? ''
+const apikey: string = 'JRF3fP8X77HYSl8M37XMJ9USPfAXi3Es'
 @Injectable({ providedIn: 'root' })
 
 export class ApiConnService {
